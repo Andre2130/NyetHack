@@ -1,13 +1,27 @@
+import kotlin.math.roundToInt
+
 const val tavernName = "Taernyl's Folly"
 
 var playerGold = 10
 var playerSilver = 10
 
 fun main(args: Array<String>) {
-    placeOrder("shady, Dragon's Breath, 5.91")
+    placeOrder("shady,Dragon's Breath,5.91")
 }
 
-fun performPurchase(){
+fun performPurchase(price: Double){
+    displayBalance()
+    val totalPurse = playerGold + (playerSilver / 100.0)
+    println("Total purse: $totalPurse")
+    println("Purchasing item for $price")
+
+    val remaningBalance = totalPurse - price
+    println("Remaining balance : ${"%.2f".format(remaningBalance)}")
+
+    val remainingGold = remaningBalance.toInt()
+    val remainingSilver = (remaningBalance % 1 * 100).roundToInt()
+    playerGold = remainingGold
+    playerSilver = remainingSilver
     displayBalance()
 }
 
@@ -24,17 +38,18 @@ private fun placeOrder(menuData: String) {
     val message = "Madrigal buys a $name ($type) for $price."
     println(message)
 
-    performPurchase()
+    performPurchase(price.toDouble())
 
-    var phrase = if(name == "Dragon's Breath"){
-        "Madrigal exclaims ${toDradgonSpeak("Ah, delicious $name!")}"
-    }else{
+    var phrase = if (name == "Dragon's Breath"){
+        "Madrigal exclaims ${toDragonSpeak("Ah, delicious $name!")}"
+    } else {
         "Madrigal says: Thanks for the $name"
+        //"Madrigal exclaims ${toDragonSpeak("Ah, delicious $name!")}"
     }
     println(phrase)
 }
 
-fun toDradgonSpeak(phrase: String)=
+fun toDragonSpeak(phrase: String)=
         phrase.replace(Regex("[aeiou]")){
 
             when(it.value){
