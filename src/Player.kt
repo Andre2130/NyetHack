@@ -5,14 +5,16 @@ class Player(_name: String,
              val isBlessed: Boolean,
              private val isImmortal: Boolean){
         var name = _name
-            get() = "${field.capitalize()} of $hometown"
+            //$hometown should be used for "blank" but no file to read at the moment
+            get() = "${field.capitalize()} of blank"
             private set(value) {
                 field = value.trim()
             }
 
 
 
-    val hometown by lazy { selectHometown() }
+   // val hometown by lazy { selectHometown() }
+    var currentPosition = Coordinate(0,0)
 
     init {
         require(healthPoints > 0, {"healthPoints must be greater than zero."})
