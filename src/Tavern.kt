@@ -4,9 +4,37 @@ const val tavernName = "Taernyl's Folly"
 
 var playerGold = 10
 var playerSilver = 10
+val patronList = mutableListOf("Eli", "Mordoc", "Sophie")
 
 fun main(args: Array<String>) {
-    placeOrder("shady,Dragon's Breath,5.91")
+    if (patronList.contains("Eli")){
+        println("The Tavern master says: Eli's in the back playing cards")
+    } else {
+        println("The tavern master says: Eli isn't here.")
+    }
+
+    if (patronList.containsAll(listOf("Sophie", "Mordoc"))){
+        println("The Taver master says: Yae, they're seated by the stew kettle.")
+    } else {
+        println("The Taver master says: Nay, they departed hours ago.")
+    }
+
+
+
+    /*println(patronList)
+    patronList.remove("Eli")
+    patronList.add(0, "Alex")
+    patronList[0] = "Alexis"
+    println(patronList)*/
+    /*for (patron in patronList){
+        println("Good evening, $patron")
+    }*/
+    patronList.forEachIndexed() { index, patron ->
+        println("Good evening, $patron - you're on #${index + 1} in line.")
+        //spacing is important caused an error in if statement whene I had "Shady, Dragon's Breath, 5.91
+        placeOrder("shady,Dragon's Breath,5.91")
+    }
+
 }
 
 fun performPurchase(price: Double){
